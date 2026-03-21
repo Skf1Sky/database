@@ -1,0 +1,97 @@
+CREATE DATABASE QL_CUU_TRO;
+USE QL_CUU_TRO;
+CREATE TABLE DON_VI_UNG_HO (
+    MaDVUH VARCHAR(10) PRIMARY KEY,
+    HoTenNguoiDaiDien VARCHAR(100),
+    DiaChiNguoiDaiDien VARCHAR(255),
+    SoDienThoaiLienLac VARCHAR(15),
+    SoCMNDNguoiDaiDien VARCHAR(20),
+    SoTaiKhoanNganHang VARCHAR(20),
+    TenNganHang VARCHAR(50),
+    ChiNhanhNganHang VARCHAR(100),
+    TenChuTKNganHang VARCHAR(100)
+);
+CREATE TABLE DOT_UNG_HO (
+    MaDotUngHo VARCHAR(10) PRIMARY KEY,
+    MaDVUH VARCHAR(10),
+    NgayUngHo DATE,
+    FOREIGN KEY (MaDVUH) REFERENCES DON_VI_UNG_HO(MaDVUH)
+);
+CREATE TABLE HINH_THUC_UH (
+    MaHinhThucUH VARCHAR(10) PRIMARY KEY,
+    TenHinhThucUngHo VARCHAR(100)
+);
+CREATE TABLE CHI_TIET_UNG_HO (
+    MaDotUngHo VARCHAR(10),
+    MaHinhThucUH VARCHAR(10),
+    SoLuongUngHo INT,
+    DonViTinh VARCHAR(20),
+    PRIMARY KEY (MaDotUngHo, MaHinhThucUH),
+    FOREIGN KEY (MaDotUngHo) REFERENCES DOT_UNG_HO(MaDotUngHo),
+    FOREIGN KEY (MaHinhThucUH) REFERENCES HINH_THUC_UH(MaHinhThucUH)
+);
+CREATE TABLE HO_DAN (
+    MaHoDan VARCHAR(10) PRIMARY KEY,
+    HoTenChuHo VARCHAR(100),
+    ToDanPho INT,
+    KhoiHoacThon INT,
+    SoDienThoai VARCHAR(15),
+    DiaChiNha VARCHAR(255),
+    SoNhanKhau INT,
+    DienGiaDinh VARCHAR(100),
+    LaHoNgheo VARCHAR(10)
+);
+CREATE TABLE DOT_NHAN_UNG_HO (
+    MaDotNhanUngHo VARCHAR(15) PRIMARY KEY,
+    MaHoDan VARCHAR(10),
+    NgayNhanUngHo DATE,
+    FOREIGN KEY (MaHoDan) REFERENCES HO_DAN(MaHoDan)
+);
+CREATE TABLE DOT_NHAN_UNG_HO (
+    MaDotNhanUngHo VARCHAR(15) PRIMARY KEY,
+    MaHoDan VARCHAR(10),
+    NgayNhanUngHo DATE,
+    FOREIGN KEY (MaHoDan) REFERENCES HO_DAN(MaHoDan)
+);
+CREATE TABLE CHI_TIET_NHAN_UNG_HO (
+    MaDotNhanUngHo VARCHAR(15),
+    MaHinhThucUH VARCHAR(10),
+    SoLuongNhanUngHo INT,
+    DonViTinh VARCHAR(20),
+    PRIMARY KEY (MaDotNhanUngHo, MaHinhThucUH),
+    FOREIGN KEY (MaDotNhanUngHo) REFERENCES DOT_NHAN_UNG_HO(MaDotNhanUngHo),
+    FOREIGN KEY (MaHinhThucUH) REFERENCES HINH_THUC_UH(MaHinhThucUH)
+);
+
+INSERT INTO DON_VI_UNG_HO VALUES
+('CN001','Nguyen Van A1','Quang Nam','0905121121','124898000','65874000','TienPhong Bank','Da Nang','Nguyen Van A1'),
+('CN002','Nguyen Van A2','Thua Thien Hue','0905121122','124898001','65874001','Vietcom','Quang Nam','Nguyen Van A2'),
+('CTY01','Nguyen Van A3','Vinh Phuc','0905121123','124898002','65874002','DongA','Hue','Nguyen Van A3'),
+('CTY02','Nguyen Van A4','Quang Ngai','0905121124','124898003','65874003','Mbank','Gia Lai','Nguyen Van A4');
+
+
+INSERT INTO DOT_UNG_HO VALUES
+('UH001','CN002','2016-11-18'),
+('UH002','CTY01','2015-11-19'),
+('UH003','CTY02','2015-08-10'),
+('UH004','CTY02','2015-10-20'),
+('UH005','CTY02','2016-11-11');
+
+
+INSERT INTO HINH_THUC_UH VALUES
+('HT01','Tien mat'),
+('HT02','Mi tom'),
+('HT03','Quan ao');
+
+INSERT INTO CHI_TIET_UNG_HO VALUES
+('UH001','HT01',6000,'USD'),
+('UH002','HT02',50,'Thung'),
+('UH003','HT03',200,'Bo'),
+('UH003','HT01',100000,'JPY'),
+('UH004','HT01',100000,'USD'),
+('UH005','HT03',100,'Bo');
+
+SHOW DATABASES;
+USE QL_CUU_TRO;
+SHOW TABLES;
+describe HO_DAN;
